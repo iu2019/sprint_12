@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const user = require('../data/user.json');
+const users = require('../data/users.json');
 
-router.get ('/user', (req, res, next) => {
+router.get ('/users', (req, res, next) => {
   res.header("Content-Type",'application/json');
-  res.json(user);
-  next();
+  res.json(users);
+  // next();
 });
 
-router.get('/user/:id', (req, res, next) => {
+router.get('/users/:id', (req, res, next) => {
   const id = req.params.id;
-  const item = user.find(item => item._id === id);
+  const item = users.find(item => item._id === id);
 
   if (!item) {
     res.writeHead(404, {
@@ -24,7 +24,7 @@ router.get('/user/:id', (req, res, next) => {
       res.send(item);
 
   }
-  next();
+  // next();
 });
 
 module.exports =  router ;

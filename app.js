@@ -1,6 +1,6 @@
 const express = require('express');
 const path = require('path');
-const  getUser  = require('./routes/user');
+const  getUsers  = require('./routes/users');
 const  getCards  = require('./routes/cards');
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', getUser);
+app.use('/', getUsers);
 app.use('/', getCards);
 app.use('/', (req, res) => {
   res.set({ 'content-type': 'application/json; charset=utf-8' });

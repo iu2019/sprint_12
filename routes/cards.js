@@ -14,7 +14,7 @@ router.get ('/cards', (req, res, next) => {
   }
     res.json(cards);
 
-  next();
+  // next();
 });
 
 router.get('/cards/:id', (req, res, next) => {
@@ -33,7 +33,7 @@ router.get('/cards/:id', (req, res, next) => {
       res.send(item);
 
   }
-  next();
+  // next();
 });
 
 module.exports =  router ;
