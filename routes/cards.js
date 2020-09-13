@@ -2,6 +2,7 @@ const router = require('express').Router();
 let cards = [];
 const fs = require('fs');
 let data;
+const path = require('path');
 
 
 
@@ -9,7 +10,7 @@ router.get ('/cards', function (req, res) {
 
   try {
 
-        data = fs.readFileSync('data/cards.json', 'utf8' );
+        data = fs.readFileSync(path.join(__dirname,'../data/cards.json'), 'utf8' );
       } catch (err) {
         console.log('JSON read error', err);
         res.set({ 'content-type': 'application/json; charset=utf-8' });
@@ -20,7 +21,7 @@ router.get ('/cards', function (req, res) {
   try {
         cards = JSON.parse(data);
       } catch(err) {
-        console.log(err, 'JSON inconsistent or missing');
+        console.log('JSON inconsistent or missing');
         res.set({ 'content-type': 'application/json; charset=utf-8' });
         res.status(404).end('<h1>Ошибка формата карточек</h1>','utf8');
         return;

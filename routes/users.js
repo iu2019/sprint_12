@@ -1,13 +1,14 @@
 const router = require('express').Router();
 let users =[];
 const fs = require('fs');
+const path = require('path');
 
 let data;
 
 router.get ('/users', function (req, res) {
 
   try {
-        data = fs.readFileSync('data/users.json', 'utf8' );
+        data = fs.readFileSync(path.join(__dirname,'../data/users.json'), 'utf8' );
       } catch (err) {
         console.log('\n JSON read error', err);
         res.set({ 'content-type': 'application/json; charset=utf-8' });
@@ -18,7 +19,7 @@ router.get ('/users', function (req, res) {
   try {
         users = JSON.parse(data);
       } catch(err) {
-        console.log(err,'\n JSON inconsistent or missing');
+        console.log('\n JSON inconsistent or missing');
         res.set({ 'content-type': 'application/json; charset=utf-8' });
         res.status(404).end('<h1>Ошибка формата записи пользователяк</h1>','utf8');
         return;
