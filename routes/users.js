@@ -1,13 +1,34 @@
 const router = require('express').Router();
-const users = require('../data/users.json');
+let users =[];
+const fs = require('fs');
 
-router.get ('/users', (req, res, next) => {
-  res.header("Content-Type",'application/json');
+let data;
+
+router.get ('/users', function (req, res) {
+
+  try {
+        data = fs.readFileSync('data/users.json', 'utf8' );
+      } catch (err) {
+        console.log('\n JSON read error', err);
+        res.set({ 'content-type': 'application/json; charset=utf-8' });
+        res.status(404).end('<h1>Ошибка чтения файла пользователей</h1>','utf8');
+        return;
+    }
+
+  try {
+        users = JSON.parse(data);
+      } catch(err) {
+        console.log(err,'\n JSON inconsistent or missing');
+        res.set({ 'content-type': 'application/json; charset=utf-8' });
+        res.status(404).end('<h1>Ошибка формата записи пользователяк</h1>','utf8');
+        return;
+    }
+
   res.json(users);
-  // next();
+
 });
 
-router.get('/users/:id', (req, res, next) => {
+router.get('/users/:id', (req, res) => {
   const id = req.params.id;
   const item = users.find(item => item._id === id);
 
@@ -24,7 +45,7 @@ router.get('/users/:id', (req, res, next) => {
       res.send(item);
 
   }
-  // next();
+
 });
 
 module.exports =  router ;
