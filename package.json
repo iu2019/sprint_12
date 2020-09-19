@@ -1,8 +1,8 @@
 {
   "name": "iumansky_sprint12",
-  "author": "",
+  "author": "IU",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mesto Project - sprint 12",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.js",
